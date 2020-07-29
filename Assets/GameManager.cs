@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject m_Core;
     public AudioSource winAudio;
     public AudioSource loseAudio;
+    public AudioSource newSceneAudio;
     
     // Start is called before the first frame update
     void Start()
@@ -50,10 +51,12 @@ public class GameManager : MonoBehaviour
             case "Ring00":
                 SceneManager.LoadScene("Ring01");
                 m_ResultUI.SetActive(false);
+                newSceneAudio.Play();
                 break;
             case "Ring01":
                 SceneManager.LoadScene("Ring02");
                 m_ResultUI.SetActive(false);
+                newSceneAudio.Play();
                 break;
         }
         

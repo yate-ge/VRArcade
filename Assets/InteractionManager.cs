@@ -11,6 +11,8 @@ public class InteractionManager : MonoBehaviour
     public GameObject m_Ring;
     public GameObject m_VelAnchor;
     public GameObject m_Parent;
+    public AudioSource m_ThrowAudio;
+    public AudioSource m_FlyAudio;
 
     Vector3[] poses = new Vector3[10];
 
@@ -83,6 +85,9 @@ public class InteractionManager : MonoBehaviour
 
         var m_v = poses[0] - poses[9];
         rig.AddForce(m_v/Time.deltaTime/8, ForceMode.Impulse);
+
+        m_ThrowAudio.Play();
+        m_FlyAudio.PlayDelayed(0.3f);
 
 
     }
