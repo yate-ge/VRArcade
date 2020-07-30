@@ -79,7 +79,9 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: d847b876476d3d6468f5dfcd34266f96,
       type: 2}
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Standalone
+    - Windows Store Apps
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -116,7 +118,9 @@ QualitySettings:
     resolutionScalingFixedDPIFactor: 1
     customRenderPipeline: {fileID: 11400000, guid: 85e44c50ee701fa448ab9686d94d164d,
       type: 2}
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Windows Store Apps
+    - Standalone
   m_PerPlatformDefaultQuality:
     Android: 1
     Lumin: 2

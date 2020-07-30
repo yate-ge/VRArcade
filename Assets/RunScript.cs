@@ -13,6 +13,6 @@ public class RunScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(25*Time.deltaTime,0 ,0,Space.World );
+        transform.Rotate(0,15*Time.deltaTime ,0,Space.Self );
     }
 }

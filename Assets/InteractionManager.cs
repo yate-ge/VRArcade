@@ -84,7 +84,7 @@ public class InteractionManager : MonoBehaviour
         rig.transform.SetParent(null);
 
         var m_v = poses[0] - poses[9];
-        rig.AddForce(m_v/Time.deltaTime/8, ForceMode.Impulse);
+        rig.AddForce(m_v/Time.deltaTime/7, ForceMode.Impulse);
 
         m_ThrowAudio.Play();
         m_FlyAudio.PlayDelayed(0.3f);

@@ -15,22 +15,23 @@ public class MoveTestScript : MonoBehaviour
     void Update()
     {
         // transform.GetComponent<Rigidbody>().AddForce(0,1,0,ForceMode.Impulse);
-        if(transform.position.y>1)
-        {
-            jumping = true;
-        }
-        if(transform.position.y<0.1&&jumping)
-        {
-            jumping = false;
-            Debug.Log("jumping is false");
-        }
-        if(transform.position.y<0)
-        {
-            var p = transform.position;
-            transform.position = new Vector3(p.x,0,p.z);
-        }
+        // if(transform.position.y>1)
+        // {
+        //     jumping = true;
+        // }
+        // if(transform.position.y<0.1&&jumping)
+        // {
+        //     jumping = false;
+        //     Debug.Log("jumping is false");
+        // }
+        // 如果是蹦床scene的话
+        // if(transform.position.y<0)
+        // {
+        //     var p = transform.position;
+        //     transform.position = new Vector3(p.x,0,p.z);
+        // }
         
-        transform.rotation = Quaternion.Euler(0,0,0);
+        // transform.rotation = Quaternion.Euler(0,0,0);
         
     }
 
