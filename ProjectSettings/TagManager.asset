@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ResultUI
   - HitTarget
+  - JumpArea
   layers:
   - Default
   - TransparentFX

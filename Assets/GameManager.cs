@@ -11,8 +11,8 @@ public class GameManager : MonoBehaviour
     public AudioSource winAudio;
     public AudioSource loseAudio;
     public AudioSource newSceneAudio;
-    private int currentLevel;
-    public GameObject[] levels = new GameObject[10];
+    public int currentLevel = 1;
+    public GameObject[] levels = new GameObject[7];
     
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 进入第一关
-        currentLevel = 1;
+        // currentLevel = 1;
         EnterLevel(currentLevel);
     }
 
@@ -74,8 +74,8 @@ public class GameManager : MonoBehaviour
         //     SceneManager.LoadScene(1);
             
         // }
-
-        EnterLevel(currentLevel+1);                                                     
+        currentLevel +=1;
+        EnterLevel(currentLevel);                                                     
 
     }
 
@@ -86,12 +86,26 @@ public class GameManager : MonoBehaviour
 
     void EnterLevel(int l)
     {
+        if(l!=5)
+        {
+            m_Core.GetComponent<MoveTestScript>().enabled = false;
+            m_Core.GetComponent<Rigidbody>().useGravity = false;
+            m_Core.GetComponent<Rigidbody>().isKinematic = true;
+            m_Core.GetComponent<BoxCollider>().enabled = false;
+        }else
+        {
+            m_Core.GetComponent<MoveTestScript>().enabled = true;
+            m_Core.GetComponent<Rigidbody>().useGravity = true;
+            m_Core.GetComponent<Rigidbody>().isKinematic = false;
+            m_Core.GetComponent<BoxCollider>().enabled = true;
+        }
+
         m_Core.transform.parent = levels[l-1].transform.Find("UserArea");
         m_Core.transform.localPosition = Vector3.zero;
         m_Core.transform.localRotation = Quaternion.identity;
 
         // 关闭其他level content
-        for(var n=0;n<10;n++)
+        for(var n=0;n<7;n++)
         {
             if(n!=l-1)
             {

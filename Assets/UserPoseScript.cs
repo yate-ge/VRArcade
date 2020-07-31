@@ -16,14 +16,17 @@ public class UserPoseScript : MonoBehaviour
     void Update()
     {
         var e = m_centerEye.transform.position;
-        transform.position = new Vector3(e.x,0,e.z);
+        transform.position = new Vector3(e.x,transform.position.y,e.z);
+        // var e = transform.localRotation;
+        // transform.localRotation = Quaternion.Euler(0,e.y,0);
         // Debug.Log("user pose :" + transform.position);
     }
 
     private void OnTriggerEnter(Collider other) {
         Debug.Log(other.name);
-        if(other.name == "trampoline")
+        if(other.tag == "JumpArea")
         {
+            transform.parent.GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.parent.GetComponent<MoveTestScript>().Jump();
         }
     }

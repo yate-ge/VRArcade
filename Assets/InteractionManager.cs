@@ -13,8 +13,9 @@ public class InteractionManager : MonoBehaviour
     public GameObject m_Parent;
     public AudioSource m_ThrowAudio;
     public AudioSource m_FlyAudio;
+    public Transform m_RightHandAnchor;
 
-    Vector3[] poses = new Vector3[10];
+    Vector3[] poses = new Vector3[8];
 
     Vector3 lastPose;
 
@@ -61,11 +62,12 @@ public class InteractionManager : MonoBehaviour
 
 
         // calculate poses;
-        for(var p=9; p>0; p--)
+        for(var p=7; p>0; p--)
         {
             poses[p] = poses[p - 1];
         }
         poses[0] = m_Ring.transform.position;
+        // poses[0] = m_RightHandAnchor.localPosition;
 
     }
 
@@ -83,8 +85,8 @@ public class InteractionManager : MonoBehaviour
         rig.isKinematic = false;
         rig.transform.SetParent(null);
 
-        var m_v = poses[0] - poses[9];
-        rig.AddForce(m_v/Time.deltaTime/7, ForceMode.Impulse);
+        var m_v = poses[0] - poses[7];
+        rig.AddForce(m_v/Time.deltaTime/7f, ForceMode.Impulse);
 
         m_ThrowAudio.Play();
         m_FlyAudio.PlayDelayed(0.3f);
