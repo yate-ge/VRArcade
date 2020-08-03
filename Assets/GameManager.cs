@@ -7,19 +7,26 @@ public class GameManager : MonoBehaviour
 {
     public RingHitManager m_RingHitManager;
     public GameObject m_ResultUI;
+    public GameObject m_loseUI;
     public GameObject m_Core;
     public AudioSource winAudio;
     public AudioSource loseAudio;
     public AudioSource newSceneAudio;
     public int currentLevel = 1;
-    public GameObject[] levels = new GameObject[7];
+    public GameObject[] levels = new GameObject[8];
+    public int ringCount = 100;
+    public GameObject m_countUI;
+    public bool finishThisLevel;
+    public GameObject theEnd;
+    public GameObject m_raycast;
     
     // Start is called before the first frame update
     void Start()
     {
         m_RingHitManager.HitTargetEvent += HitSuccessHandler;
 
-        
+        finishThisLevel = false;
+        m_loseUI.SetActive(false);
 
         if(GameObject.FindGameObjectWithTag("ResultUI"))
         {
@@ -34,6 +41,7 @@ public class GameManager : MonoBehaviour
 
         // 进入第一关
         // currentLevel = 1;
+        m_raycast.SetActive(false);
         EnterLevel(currentLevel);
     }
 
@@ -41,14 +49,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(ringCount==0)
+        {
+            m_loseUI.SetActive(true);
+            loseAudio.Play();
+        }
     }
     public void HitSuccessHandler()
     {
+        if(currentLevel == 7)
+        {
+            Debug.Log("tong guang!!!");
+            winAudio.Play();
+            EnterLevel(8);
+            return;  
+        }
+
         m_ResultUI.SetActive(true);
         Debug.Log("Success!!!");
 
         winAudio.Play();
+        finishThisLevel = true;
+        m_raycast.SetActive(true);
     }
 
     public void NextChallenge()
@@ -74,6 +96,11 @@ public class GameManager : MonoBehaviour
         //     SceneManager.LoadScene(1);
             
         // }
+        // if(currentLevel == 7)
+        // {
+
+        // }
+
         currentLevel +=1;
         EnterLevel(currentLevel);                                                     
 
@@ -86,6 +113,8 @@ public class GameManager : MonoBehaviour
 
     void EnterLevel(int l)
     {
+        m_raycast.SetActive(true);
+        finishThisLevel = false;
         if(l!=5)
         {
             m_Core.GetComponent<MoveTestScript>().enabled = false;

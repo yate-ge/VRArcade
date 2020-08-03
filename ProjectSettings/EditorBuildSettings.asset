@@ -6,14 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/RingGame/Scenes/Ring00.unity
-    guid: 7ebe8f5ce38914548b3555094c0ae30a
-  - enabled: 1
     path: "Assets/RingGame/Scenes/01-\u5730\u6BEF\u5957\u5708.unity"
     guid: c98d7910e2c3a8745b0c00c6f6c42f9d
-  - enabled: 1
-    path: "Assets/RingGame/Scenes/02-\u9AD8\u697C.unity"
-    guid: 11596dd8db0e93048bbed66cf00b8a9a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ad97b965a8325e64185c814ad8d4ab34,
       type: 2}
