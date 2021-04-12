@@ -20,6 +20,8 @@ public class InteractionManager : MonoBehaviour
 
     private int n=8;
 
+    Vector3 m_v;
+
     Vector3[] poses;
 
     Vector3 lastPose;
@@ -47,14 +49,34 @@ public class InteractionManager : MonoBehaviour
 
         }
 
+        // set vibration
         if(OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger,OVRInput.Controller.RTouch))
         {
             OVRInput.SetControllerVibration(0.3f, 0.5f, OVRInput.Controller.RTouch);
+
+
+            // 通过改变环的亮度来可视化速度
+            m_v = poses[0] - poses[7];
+            var l = Vector3.Magnitude(m_v);
+
+            var a = 1f;
+            var max_a = 5.5f; // 倍数
+            if (l > 2f)
+            {
+                a = max_a;
+            }
+            else
+            {
+                a = (l / 2f) * (max_a - 1) + 1;
+            }
+
+            m_Ring.GetComponentInChildren<MeshRenderer>().material.SetVector("_EmissionColor", new Vector4(1.498039f, 0.1411764f, 1.286275f) * a);
+
         }
 
         if(OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
         {
-            ThrowRing();
+            ThrowRing(); // toss ring
             OVRInput.SetControllerVibration(0, 0, OVRInput.Controller.RTouch);
         }
 
@@ -82,11 +104,23 @@ public class InteractionManager : MonoBehaviour
             poses[p] = poses[p - 1];
         }
         poses[0] = m_Ring.transform.position;
-        // poses[0] = m_RightHandAnchor.localPosition;        
+        // poses[0] = m_RightHandAnchor.localPosition;   
+
+       
+
+
+
+
     }
 
     void GetRing()
     {
+        // 清空速度
+        for (var p = n - 1; p > 0; p--)
+        {
+            poses[p] = m_Ring.transform.position;
+        }
+
         // m_Ring.transform.SetParent(m_Parent.transform);
         // m_Ring.SetActive(true);
         // m_Ring.transform.localPosition = Vector3.zero;
@@ -95,6 +129,9 @@ public class InteractionManager : MonoBehaviour
 
         m_Ring = Instantiate(m_RingPrefab);
         m_Ring.transform.SetParent(m_Parent.transform);
+
+        m_Ring.GetComponentInChildren<MeshRenderer>().material.SetVector("_EmissionColor", new Vector4(1.498039f, 0.1411764f, 1.286275f) * 1);
+
         m_Ring.SetActive(true);
         m_Ring.transform.localPosition = Vector3.zero;
         m_Ring.transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -113,8 +150,7 @@ public class InteractionManager : MonoBehaviour
         rig.isKinematic = false;
         rig.transform.SetParent(null);
 
-        var m_v = poses[0] - poses[7];
-        rig.AddForce(m_v/Time.deltaTime/6f, ForceMode.Impulse);
+        rig.AddForce(m_v / Time.deltaTime/6f, ForceMode.Impulse);
 
         m_ThrowAudio.Play();
         m_FlyAudio.PlayDelayed(0.3f);
