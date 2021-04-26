@@ -155,7 +155,7 @@ public class InteractionManager : MonoBehaviour
         m_ThrowAudio.Play();
         m_FlyAudio.PlayDelayed(0.3f);
 
-         m_manager.m_countUI.GetComponentInChildren<Text>().text = "剩余环数： " + m_manager.ringCount;
-         m_manager.m_countUI.SetActive(true);
+        m_manager.m_countUI.GetComponentInChildren<Text>().text = "剩余环数： " + m_manager.ringCount;
+        m_manager.m_countUI.SetActive(true);
     }
 }
